@@ -1,0 +1,9 @@
+data/current
+data/old
+data/processed/*
+generated_html
+external_src
+external_srcc
+plots
+html_src
+__pycache__

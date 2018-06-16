@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="cs" lang="cs" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+  <meta name="description" content="Train your brain with educational activities">
+  <meta name="keywords" content="Problem Solving Activities, Math, Informatics, Puzzles">
+  <title> Problem Solving Tutor </title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <script src="./plotly-latest.min.js"></script>
+  <script id="script.html" type="text/javascript" src="./html.js"></script></head>
+
+<body id="body">
+  <div id="main_wrapper">
+      <div class="float_clear_both"></div>
+      <div id="content_wrapper">
+        <div id="content">        
+  <style type="text/css"> 
+  
+  div.showrules_wrapper,.showheader
+  {
+    margin:0px;
+    padding:5px;
+    text-align:right;
+  }
+  
+  .showheader{
+    float:left;
+  }
+  
+  .showrules, .showheader{
+    cursor: pointer;
+  }
+  div.rules,div.after_win,.stats
+  {
+    margin:0px;
+    padding:5px;
+    display:none;
+  }
+  
+  div.progress_bar {
+    background-color:orange;
+    width:0px;
+    height:20px;
+    border:0px solid green;
+    background-image: url(img/prechod.jpg); 
+  }
+
+  div.progress{
+        display:none;
+      }
+  
+  #header_wrapper{
+      }
+  
+  </style>
+
+  <script type="text/javascript" src="./jquery-1.7.1.min.js"></script>
+
+  <script type="text/javascript">
+
+// tohle je tu kvuli tomu, aby se jmenny prostor Jquery nemlatil s jinymi JS knihovnama treba Mootools
+(function($) {
+      
+  $(document).ready(function(){
+    
+    $(".showheader").click(function(){
+      $("#header_wrapper").slideToggle("fast");  
+      var text = $('.showheader').text();      
+      $('.showheader').text(
+        text == "Skrýt hlavičku" ? "Zobrazit hlavičku" : "Skrýt hlavičku");
+
+      if (text == "Skrýt hlavičku"){
+        var data = 'showheader=0&user_id=4786';
+      }else{
+        var data = 'showheader=1&user_id=4786';
+      }        
+      $.ajax({
+        type: "get",
+        url: "./ajax/showheader.php",
+        data: data,                                                     
+        success:function(result){ }
+      });    
+              
+    });
+    
+    $(".showrules").click(function(){
+      $(".rules").slideToggle("fast");
+      var text = $('.showrules').text();      
+      $('.showrules').text(
+        text == "Skryj pravidla" ? "Zobrazit pravidla" : "Skryj pravidla");      
+    });
+       
+    $("#button_instance_list").click(function(){     
+      var data = 'session_id=&session_hash=&giveUp=1';
+      $.ajax({
+        type: "get",
+        url: "./interface/interface.php",
+        data: data,                                                     
+        success:function(result){
+          window.location.href='index.php?p=instance_list&problem_id=14';  
+        }
+      });    
+    });
+
+    $("#button_instance_list_after_win").click(function(){     
+      window.location.href='index.php?p=instance_list&problem_id=14';  
+    });
+
+    $("#button_restart").click(function(){
+      var data = 'session_id=&session_hash=&giveUp=1';
+      $.ajax({
+        type: "get",
+        url: "./interface/interface.php",
+        data: data,                                                     
+        success:function(result){
+                      window.location='index.php?p=instance_solve&instance_id=638';          
+           
+        }
+      });    
+    });    
+      
+  });
+
+// tohle je tu kvuli tomu, aby se jmenny prostor Jquery nemlatil s jinymi JS knihovnama treba Mootools
+  })(jQuery);
+  
+  function sendDataToInterface(data){
+    (function($) {
+    $.ajax({
+      type: "get",
+      url: "./interface/interface.php",
+      data: data,                                                     
+      success:function(result){
+        //$(".interface").html(data); // debug mod kdy si to vypisuju
+      }
+    });
+    })(jQuery);
+  }
+  
+  function after_win(){
+    (function($) {
+    $(".before_win").slideToggle("fast");
+    $(".after_win").slideToggle("fast");
+
+        })(jQuery);
+  }
+  
+
+</script> 
+   
+  <div class="showrules_wrapper"><span class="showrules">Zobrazit pravidla</span></div>
+  <center>    
+  <div class="after_win"> 
+  </div>
+  
+  <br>
+  <div>
+    <h1 class="no_margin">__TEMPLATE_TITLE</h1>
+    <link href="./robozzle.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./base.js"></script>
+    <script type="text/javascript" src="./html.js"></script>
+    <script type="text/javascript" src="./robozzle.js"></script>
+	  <h1>Robotanik</h1>
+    <div id="robozzle">			<h2 id="puzzleTitle">Trénink barev</h2>			<h3 id="puzzleAbout">Na hnědé zahněte doprava</h3>			<div id="stackwrapper">                <div id="stack" style="padding-top: 715.009px; height: 0px;"></div>                <div id="fadeout"></div>            </div>            <div id="boardwrapper">			<div id="robot" style="display: block; top: 120px; left: 339.673px; background-position: -40px 0px;"></div>			<table>				<tbody id="board">			<tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: -200px -120px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: -200px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px -80px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr><tr><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td><td style="background-position: 0px 0px;"></td></tr></tbody></table>            </div>			<div id="controls">                <form name="speed">                Rychlost animace:<br>
+    <input type="radio" name="speed" value="900">1
+    <input type="radio" name="speed" value="300">2
+    <input type="radio" name="speed" value="100">3
+    <input type="radio" name="speed" value="40">4
+    <input type="radio" name="speed" value="10" checked="">5                <br><br>				<a id="runPuzzle" href="https://tutor.fi.muni.cz/index.php?p=instance_solve&amp;instance_id=638#"><span>p</span></a>				<a id="stepPuzzle" href="https://tutor.fi.muni.cz/index.php?p=instance_solve&amp;instance_id=638#"><span>o</span></a>				<a id="resetPuzzle" href="https://tutor.fi.muni.cz/index.php?p=instance_solve&amp;instance_id=638#"><span>l</span></a>                <input id="tooglestack" type="checkbox" checked="">                <label for="tooglestack">Zobrazit zásobník</label>                <br>                <input id="tooltips" type="checkbox">                <label for="tooltips">Klávesové zkratky</label>                <br>                <input id="multidrag" type="checkbox">                <label for="multidrag">Přesun více příkazů</label>                </form>			</div>			<div id="resources">                <div>                    <span id="red" style="background-position: 0px -30px"><span>q</span></span>                    <span id="green" style="background-position: 0px -60px"><span>w</span></span>                    <span id="blue" style="background-position: 0px -90px"><span>e</span></span>                    <span id="grey" style="background-position: 0px 0px"><span>r</span></span>                    <span id="paintred" style="background-position: -270px 0px; visibility: hidden;"><span>t</span></span>                    <span id="paintgreen" style="background-position: -300px 0px; visibility: hidden;"><span>y</span></span>                    <span id="paintblue" style="background-position: -330px 0px; visibility: hidden;"><span>u</span></span>                    <span id="nop" style="background-position: -360px 0px;"><span>i</span></span>                </div>                <div>                    <span id="forward" style="background-position: -30px 0px"><span>a</span></span>                    <span id="left" style="background-position: -60px 0px"><span>s</span></span>                    <span id="right" style="background-position: -90px 0px"><span>d</span></span>                    <span style="cursor:default;background-position: -360px -90px; display: none;"></span>                    <span id="f1" style="background-position: -120px 0px; visibility: visible;"><span>f</span></span>                    <span id="f2" style="background-position: -150px 0px; visibility: hidden;"><span>g</span></span>                    <span id="f3" style="background-position: -180px 0px; visibility: hidden;"><span>h</span></span>                    <span id="f4" style="background-position: -210px 0px; visibility: hidden;"><span>j</span></span>                    <span id="f5" style="background-position: -240px 0px; visibility: hidden;"><span>k</span></span>                </div>                <div style="display:none">                    <span id="blankProgram" style="background-position: -360px -30px"></span>                    <span id="unavailableProgram" style="background-position: -360px -60px"></span>                    <span></span>                    <span></span>                    <span></span>                    <span></span>                </div>			</div>            <div id="program">            <div><div id="sub1" style="display: block;">F1</div><span class="highlighted" style="background-position: -360px -30px;"></span><span style="background-position: -360px -30px;"></span><span style="background-position: -360px -30px;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span></div><div><div id="sub2" style="display: none;">F2</div><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span></div><div><div id="sub3" style="display: none;">F3</div><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span></div><div><div id="sub4" style="display: none;">F4</div><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span></div><div><div id="sub5" style="display: none;">F5</div><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span><span style="background-position: -360px -60px; display: none;"></span></div></div>			<div id="animate"></div>			<div id="drag" style="background-position: -360px -30px; display: none; width: 0px; left: 1319px; top: 61px;"></div>			<table id="boardEdit" style="display:none">				<tbody>					<tr>						<td id="star" style="background-position: -200px 0px"></td>						<td id="robot0" style="background-position: -40px 0px"></td>						<td id="robot1" style="background-position: -80px 0px"></td>						<td id="robot2" style="background-position: -120px 0px"></td>						<td id="robot3" style="background-position: -160px 0px"></td>					</tr>					<tr>						<td id="boardgrey" style="background-position: 0px 0px"></td>						<td id="boardred" style="background-position: 0px -40px"></td>						<td id="boardgreen" style="background-position: 0px -80px"></td>						<td id="boardblue" style="background-position: 0px -120px"></td>						<td></td>					</tr>				</tbody>			</table>    </div> 
+  </div>
+  <br>
+  <div class="before_win">
+    <input id="button_restart" type="button" value="Nový pokus">     
+    <input id="button_instance_list" type="button" value="Zkusit jinou úlohu">
+  </div>  
+  </center> 
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div id="footer_wrapper">
+        <div id="footer">
+          <div id="plot"></div>
+          </div>
+      </div>
+  </div>
+
+  <script type="text/javascript">
+    //globalni promenne tutora
+    var session_id = ""; 		//z�sk�n z glob�ln� prom�nn�
+    var id_game = ""; 			//z�sk�n z glob�ln� prom�nn� 
+    var check_hash = ""; 	//z�sk�n z glob�ln� prom�nn�
+
+    var puzzles = __TEMPLATE_PUZZLES; // this is to be supplied by python script
+    var myPlot = document.getElementById('plot'),
+        data = __TEMPLATE_DATA;
+        layout = {
+            hovermode:'closest'
+        };
+
+    Plotly.newPlot('plot', data, layout);
+
+    myPlot.on('plotly_click', function(data){
+        var point = data.points[0];
+        var str = point.text.split(';')[0];
+
+        // robozzle.ResetPuzzle();
+        robozzle.LoadPuzzle(puzzles[0],[]);
+        robozzle.SetByProgramString(str);
+    });
+
+        
+    base.domReady(function() {
+        html.load();
+        robozzle.CreateBoard(16, 12, 5, 10);
+        robozzle.LoadPuzzle(puzzles[0],[]);
+    });
+</script>
+
+</body></html>
