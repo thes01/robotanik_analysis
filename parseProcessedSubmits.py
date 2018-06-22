@@ -2,8 +2,7 @@ from ProcessedSubmit import ProcessedSubmit
 import re
 
 
-
-def loadProcessedSubmits(problem_id):
+def loadProcessedSubmits(filePath: str):
     '''
     load processed submits given the id of problem
     :param problem_id
@@ -12,7 +11,7 @@ def loadProcessedSubmits(problem_id):
 
     submits = []
 
-    with open("data/processed/{}_old.txt".format(problem_id)) as src:
+    with open(filePath) as src:
         user_id = 0
         for line in src.readlines():
             if len(line) > 0:
@@ -27,7 +26,7 @@ def loadProcessedSubmits(problem_id):
 
 def getUniqueSumbits(submits):
     '''
-    get submits unique when canonized 
+    get submits unique when canonized
     :param submits
     :return: list of ProcessedSubmits
     '''

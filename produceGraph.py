@@ -1,18 +1,19 @@
-from Levenshtein import StringMatcher
-from ProcessedSubmit import ProcessedSubmit
 import re
-from sklearn.decomposition import PCA as sklearnPCA
-from sklearn.preprocessing import StandardScaler
 import numpy as np
 import math
-from MulticoreTSNE import MulticoreTSNE as TSNE
-from parsing import parse_problems
+import plotly
+from plotly.graph_objs import Scatter, Layout
 from itertools import groupby
+from sklearn.decomposition import PCA as sklearnPCA
+from sklearn.preprocessing import StandardScaler
+from Levenshtein import StringMatcher
+from MulticoreTSNE import MulticoreTSNE as TSNE
+
+from ProcessedSubmit import ProcessedSubmit
+from parsing import parse_problems
 from createRobotanikGraphViewer import createRobotanikGraphViewer
 from parseProcessedSubmits import loadProcessedSubmits, getUniqueSumbits
 
-import plotly
-from plotly.graph_objs import Scatter, Layout
 
 # target:
 
@@ -21,7 +22,11 @@ from plotly.graph_objs import Scatter, Layout
 # do the computing and pca/tsne
 # export data to html file with data
 
+PROBLEMS_FILE = "data/_zadani.txt"
+
+PROCESSED_DATA_FOLDER = "data/processed"
 PROBLEM_ID = "0654"
+PROCESSED_FILE_SUFFIX = "_old"
 
 # if set to True, then the difference method will compute levensthein distance on visited lists
 # otherwise it will compute l. diff. on submits (aka functions)
@@ -137,7 +142,7 @@ def getPlotlyData(uniq_submits, y_values, title):
 
     return data
 
-all_problems = parse_problems("data/_zadani.txt")
+all_problems = parse_problems(PROBLEMS_FILE)
 problem = [p for p in all_problems if p.getFirstId() == PROBLEM_ID][0]
 
 # informative string
@@ -150,9 +155,12 @@ else:
         
 print(info)
 
-submits = loadProcessedSubmits(PROBLEM_ID)
+filePath = "{}/{}{}.txt".format(PROCESSED_DATA_FOLDER, PROBLEM_ID, PROCESSED_FILE_SUFFIX)
+
+submits = loadProcessedSubmits(filePath)
 unique_submits = getUniqueSumbits(submits)
-print(len(unique_submits))
+print("Total submits: {}".format(len(submits)))
+print("Unique submits: {}".format(len(unique_submits)))
 
 # compute the data
 matrix = computeDifferentionFromSolutionsMatrix(unique_submits, USE_VISITED)
