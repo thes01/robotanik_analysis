@@ -7,3 +7,4 @@ external_srcc
 plots
 html_src
 __pycache__
+.vscode
