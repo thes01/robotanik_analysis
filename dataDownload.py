@@ -10,7 +10,7 @@ def parseIds():
     with open("data/Robotanik_mapping.txt") as mapping:
         ids = [line.split(';')[0] for line in mapping.readlines() if len(line) > 0]
 
-    return ids
+    return ids  
 
 rmtree("data/current")
 mkdir("data/current")
