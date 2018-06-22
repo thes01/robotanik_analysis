@@ -25,12 +25,21 @@ from parseProcessedSubmits import loadProcessedSubmits, getUniqueSumbits
 PROBLEMS_FILE = "data/_zadani.txt"
 
 PROCESSED_DATA_FOLDER = "data/processed"
-PROBLEM_ID = "0654"
-PROCESSED_FILE_SUFFIX = "_old"
+PROBLEM_ID = "0651"
+PROCESSED_FILE_SUFFIX = ""
 
 # if set to True, then the difference method will compute levensthein distance on visited lists
 # otherwise it will compute l. diff. on submits (aka functions)
-USE_VISITED = True
+USE_VISITED = False
+
+USE_STD_SCALER = True
+
+METHODS = {
+    'pca': True,
+    'tsne': [20],  # list of perplexities to be computed, if empty, no tsne is computed
+}
+
+TSNE_ITERATIONS = 1000
 
 
 def computeDifferentionFromSolutionsMatrix(submits, use_visited: bool):
@@ -78,8 +87,8 @@ def computePCA(matrix, use_std_scaler=False):
     else:
         return sklearn_pca.fit_transform(matrix)
 
-def computeTSNE(matrix, use_std_scaler=False, perplexity=30):
-    tsne = TSNE(n_jobs=4, perplexity=perplexity, verbose=1, n_iter=5000)
+def computeTSNE(matrix, use_std_scaler=False, perplexity=30, n_iterations=1000):
+    tsne = TSNE(n_jobs=4, perplexity=perplexity, verbose=1, n_iter=n_iterations)
 
     if use_std_scaler:
         data_std = StandardScaler().fit_transform(matrix)
@@ -164,20 +173,18 @@ print("Unique submits: {}".format(len(unique_submits)))
 
 # compute the data
 matrix = computeDifferentionFromSolutionsMatrix(unique_submits, USE_VISITED)
-pca = computePCA(matrix, False)
-plotlyData = getPlotlyData(unique_submits, pca, info)
-
-# create HTML file with Robotanik/Plotly view
 file_desc = "_" + "visited" if USE_VISITED else ""
-createRobotanikGraphViewer(problem, plotlyData, info, "{}_pca".format(file_desc))
 
-# TSNE: 
+if (METHODS['pca']):
+    pca = computePCA(matrix, USE_STD_SCALER)
 
-# for perplexity in [20, 50]:
-#     print("Perplexity: {}".format(perplexity))
+    plotlyData = getPlotlyData(unique_submits, pca, info)
+    # create HTML file with Robotanik/Plotly view
+    createRobotanikGraphViewer(problem, plotlyData, info, "{}_pca".format(file_desc))
 
-#     tsne = computeTSNE(matrix, False, perplexity=perplexity)
+for perplexity in METHODS['tsne']:
+    print("TSNE Perplexity: {}".format(perplexity))
+    tsne = computeTSNE(matrix, USE_STD_SCALER, perplexity=perplexity, n_iterations=TSNE_ITERATIONS)
 
-#     plotlyData = getPlotlyData(unique_submits, tsne, info)
-#     # appendUserLinesToPlotlyData(submits, tsne, plotlyData)
-#     createRobotanikGraphViewer(problem, plotlyData, info, "{}_tsne_diff_to_solutions_p_{}".format(file_desc, perplexity))
+    plotlyData = getPlotlyData(unique_submits, tsne, info)
+    createRobotanikGraphViewer(problem, plotlyData, info, "{}_tsne_perp_{}".format(file_desc, perplexity))

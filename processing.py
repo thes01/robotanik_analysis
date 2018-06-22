@@ -14,12 +14,13 @@ import os.path
 SRC_DATA_FOLDER = "data/current"
 PROCESSED_DATA_FOLDER = "data/processed"
 
+# append _old suffix when processing the old data
 file_suffix = ""
 if SRC_DATA_FOLDER == "data/old":
     file_suffix = "_old"
 
 # specify which problems are to process
-problems = [p for p in parse_problems('data/_zadani.txt') if p.getFirstId() == '0636']
+problems = [p for p in parse_problems('data/_zadani.txt') if p.getFirstId() == '0651']
 
 
 for problem in problems:
@@ -30,6 +31,7 @@ for problem in problems:
         print("problem file {} not found".format(srcFilePath))
         continue
     
+    # parse the users objects (containing all their submits)
     users = parse_gamelog(srcFilePath)
 
     procFilePath = "{}/{}{}.txt".format(PROCESSED_DATA_FOLDER, problem.getFirstId(), file_suffix)
