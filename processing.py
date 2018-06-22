@@ -11,12 +11,15 @@ import sys
 import os.path
 
 # log source data folder
-SRC_DATA_FOLDER = "data/old"
+SRC_DATA_FOLDER = "data/current"
 PROCESSED_DATA_FOLDER = "data/processed"
-PROCESSED_FILE_SUFFIX = "_old"
+
+file_suffix = ""
+if SRC_DATA_FOLDER == "data/old":
+    file_suffix = "_old"
 
 # specify which problems are to process
-problems = [p for p in parse_problems('data/_zadani.txt') if p.getFirstId() == '0663']
+problems = [p for p in parse_problems('data/_zadani.txt') if p.getFirstId() == '0636']
 
 
 for problem in problems:
@@ -29,7 +32,7 @@ for problem in problems:
     
     users = parse_gamelog(srcFilePath)
 
-    procFilePath = "{}/{}{}.txt".format(PROCESSED_DATA_FOLDER, problem.getFirstId(), PROCESSED_FILE_SUFFIX)
+    procFilePath = "{}/{}{}.txt".format(PROCESSED_DATA_FOLDER, problem.getFirstId(), file_suffix)
 
     with open(procFilePath, 'w') as export:
         for user in users:
