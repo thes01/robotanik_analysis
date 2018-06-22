@@ -10,23 +10,28 @@ from operator import xor
 import sys
 import os.path
 
+# log source data folder
+SRC_DATA_FOLDER = "data/old"
+PROCESSED_DATA_FOLDER = "data/processed"
+PROCESSED_FILE_SUFFIX = "_old"
 
-
+# specify which problems are to process
 problems = [p for p in parse_problems('data/_zadani.txt') if p.getFirstId() == '0663']
-
-# problem = [p for p in problems if p.getFirstId() == '0680'][0]
 
 
 for problem in problems:
-    print("problem", problem.id)
+    print("problem", problem.getFirstId())
+    srcFilePath = "{}/{}.txt".format(SRC_DATA_FOLDER, problem.getFirstId())
 
-    if not os.path.exists("data/old/{}.txt".format((problem.getFirstId()))):
-        print("problem file {} not found".format(problem.getFirstId()))
+    if not os.path.exists(srcFilePath):
+        print("problem file {} not found".format(srcFilePath))
         continue
     
-    users = parse_gamelog(path='data/old/', problemId=problem.getFirstId())
+    users = parse_gamelog(srcFilePath)
 
-    with open('data/processed_new/{}_old.txt'.format(problem.getFirstId()), 'w') as export:
+    procFilePath = "{}/{}{}.txt".format(PROCESSED_DATA_FOLDER, problem.getFirstId(), PROCESSED_FILE_SUFFIX)
+
+    with open(procFilePath, 'w') as export:
         for user in users:
             # filter out users with few submits
             if user.submitCount() <= 4:

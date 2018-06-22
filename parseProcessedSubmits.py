@@ -12,7 +12,7 @@ def loadProcessedSubmits(problem_id):
 
     submits = []
 
-    with open("data/processed_new/{}_old.txt".format(problem_id)) as src:
+    with open("data/processed/{}_old.txt".format(problem_id)) as src:
         user_id = 0
         for line in src.readlines():
             if len(line) > 0:
