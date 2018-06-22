@@ -18,5 +18,6 @@ mkdir("data/current")
 ids = parseIds()
 
 for id in ids:
+    id = id.zfill(4)
     print("Downloading", id)
     urllib.request.urlretrieve(getLink(id), "data/current/{}.txt".format(id))
